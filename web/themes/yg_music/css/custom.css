@@ -1,0 +1,115 @@
+header#main-menu{
+	z-index: 100;
+}
+.toolbar-horizontal header#main-menu{
+	top:118px;
+}
+.navbar-white .navbar-nav .nav-link{
+	padding: 12px 7px !important;
+}
+.toolbar-horizontal header.sticky{
+	top: 78px !important;
+}
+.path-not-frontpage .album-left-image img{
+	height: auto;
+}
+.path-not-frontpage .show-archive .ticket-btn{
+	display: none;
+}
+.path-not-frontpage #performers .performers-items{
+	float: left;
+}
+#blog .blog-lists{
+	float: left;
+}
+.navbar-nav.ml-auto{
+	padding-left: 75px;
+}
+#page-not-found h1{
+	font-size: 120px;
+	color: #000;
+}
+#page-not-found h2{
+	font-size: 50px;
+	color: #000;
+}
+.page-not-found-text a{
+	color: #fff !important;
+    background: #000000;
+    margin-bottom: 35px;
+    margin-top: 30px;
+}
+#user-login .container{
+	width: 45%;
+    box-shadow: 1px 2px 3px 1px;
+    padding: 37px;
+    height: auto;
+    margin-bottom: 30px;
+    margin-top: 50px;
+}
+.comment-comment-form input.js-form-submit,
+.user-login-form input.js-form-submit,
+.user-register-form input.js-form-submit,
+.user-pass input.js-form-submit,.comment-comment-delete-form input.js-form-submit{
+   padding: 14px 28px;
+    width: 25%;
+    background: #000000;
+    float: left;
+    color: #fff !important;
+    font-size:18px;
+    font-weight: bold;
+    border-radius:5px;
+    text-decoration: none !important;
+    display: inline-block;
+    border: 0;
+    color: #222222;
+    text-transform: uppercase;
+    position: relative;
+    z-index: 2;
+    margin-bottom: 20px;
+ 
+}
+#user-login h2{
+	color: #000;
+}
+#user-login input{
+	box-shadow: 1px 0px 3px 0px;
+    padding: 6px;
+    border-radius: 4px;
+}
+.user-register-form.user-form{
+	padding: 50px;
+	margin-bottom: 40px;
+}
+form input{
+	max-width: -webkit-fill-available;
+}
+@media (min-width: 320px) and (max-width: 992px) {
+
+.navbar-nav.ml-auto{
+	padding-left: 0px;
+}
+#user-login .container{
+	width: 80%;
+}
+.comment-comment-form input.js-form-submit, .user-login-form input.js-form-submit, .user-register-form input.js-form-submit, .user-pass input.js-form-submit, .comment-comment-delete-form input.js-form-submit{
+	padding: 6px 19px;
+    width: 71%;
+    background: #000000;
+    float: left;
+    color: #fff !important;
+    font-size: 10px;
+}
+.navbar-nav.ml-auto , .social-header{
+    background-color: #222;
+}
+.navbar-white .navbar-nav .nav-link {
+     padding: 7px 10px !important; 
+}
+}
+@media (min-width: 992px) and (max-width: 1200px) {
+
+.navbar-nav.ml-auto{
+	padding-left: 40px;
+}
+}

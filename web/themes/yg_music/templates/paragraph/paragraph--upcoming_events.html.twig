@@ -1,0 +1,12 @@
+<!--  Start Upcoming Shows -->  
+    <section class="show-archive" style="background-image: url({{file_url(content.field_background_image['#items'].entity.uri.value)}});">
+      <div class="container">        
+          <div class="col-md-12 section-title">
+              <h2>{{content.field_title.0 }}</h2>
+          </div>
+             {{content.field_upcoming_events }}           
+          <div class="ticket-btn">
+          <a href="{{content.field_more_event.0['#url'] }}" class="btn">{{content.field_more_event.0['#title'] }}</a>
+        </div>
+      </div>
+    </section>

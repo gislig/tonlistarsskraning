@@ -1,0 +1,27 @@
+<!-- Contact section  -->
+  <section id="contact" style="background-image:url('{{file_url(content.field_background_image['#items'].entity.uri.value)}}');">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="contact-info wow fadeInUp" data-wow-delay="0.3s">
+          <h3>{{content.field_title.0}}</h3>
+          <p>{{content.field_address.0}}</p>
+        </div>  
+        <div class="contact-info wow fadeInUp" data-wow-delay="0.6s">
+          <h3>{{content.field_subtitle.0}}</h3>
+          <p><a href="tel:{{content.field_contact.0}}">{{content.field_contact.0}} |<a href="tel:{{content.field_contact1.0}}"> {{content.field_contact1.0}}</a></a></p>
+        </div> 
+        <div class="contact-info wow fadeInUp" data-wow-delay="0.9s">
+          <h3>{{content.field_mail_title.0}}</h3>
+          <p><a href="mailto:{{content.field_email.0}}">{{content.field_email.0}}</a></p>
+        </div> 
+        </div>
+        <div class="col-md-6 wow fadeInUp" data-wow-delay="0.5s">
+          <h2>{{content.field_form_title.0}}</h2>
+          {{content.field_contact_form }}
+        </div>
+
+      </div>  
+    </div>    
+</section>  
+<!-- End Contact section  -->

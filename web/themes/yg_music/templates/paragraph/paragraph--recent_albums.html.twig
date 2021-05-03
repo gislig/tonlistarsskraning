@@ -1,0 +1,22 @@
+<!-- Start Album section  -->
+<section id="recent-album" style="background-image: url({{file_url(content.field_background_image['#items'].entity.uri.value)}});">
+<div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-12 section-title">
+        <h2>{{content.field_title.0}}</h2>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 album-left-image">
+        <img src="{{file_url(content.field_image['#items'].entity.uri.value)}}" class="img-fluid" alt="albums" title="recent albums">
+      </div>
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 album-list">
+            <div class="block-tracklist gap-one-top-md">
+                <ol class="playlist">                   
+                  {{content.field_album }}
+                </ol>
+                <audio preload class="album"></audio>
+            </div>
+        </div>
+    </div>
+</div>
+</section>
+<!-- End Album section  -->
