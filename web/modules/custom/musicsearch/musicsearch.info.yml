@@ -1,0 +1,5 @@
+name: Music Search
+description: This will help you search for music
+type: module
+core_version_requirement: ^9
+package: Search
