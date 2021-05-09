@@ -1,0 +1,6 @@
+services:
+  musicsearch.salutation:
+    class: Drupal\musicsearch\MusicSearchSalutation
+    arguments: ['@config.factory', '@event_dispatcher']
+    tags:
+      - {name: tag_name}

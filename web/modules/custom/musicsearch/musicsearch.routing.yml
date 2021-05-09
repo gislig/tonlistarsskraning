@@ -5,3 +5,10 @@ musicsearch.search:
     _title: 'Route for music search'
   requirements:
     _permission: 'access content'
+musicsearch.music_form:
+  path: '/admin/config/musicsearch-configuration'
+  defaults:
+    _form: Drupal\musicsearch\Form\MusicSearchConfigurationForm
+    _title: 'Music Search Configuration'
+  requirements:
+    _permission: 'administer site configuration'

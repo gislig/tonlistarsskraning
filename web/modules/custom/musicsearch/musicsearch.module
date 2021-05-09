@@ -5,6 +5,7 @@ use Drupal\Core\Routing\RouteMatchInterface;
  * Implements hook_help().
  */
 function musicsearch_help($route_name, RouteMatchInterface $route_match) {
+  $service = Drupal::service("musicsearch.salutation");
   switch ($route_name) {
     case 'help.page.musicsearch':
       $output = '';
