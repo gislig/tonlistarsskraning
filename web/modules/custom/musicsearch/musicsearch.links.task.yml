@@ -1,0 +1,4 @@
+musicsearch.page:
+  route_name: musicsearch.search
+  title: 'Music Search'
+  base_route: musicsearch.search

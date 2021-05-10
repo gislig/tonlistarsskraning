@@ -4,7 +4,8 @@ namespace Drupal\musicsearch;
 
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+
 
 /**
  * Prepares the salutation to the music search.
@@ -21,23 +22,22 @@ class MusicSearchSalutation {
   protected $configFactory;
 
   /**
-   * The event dispatcher.
-   *
-   * @var \Symfony\Component\EventDispatcher\EventDispatcherInterface
-   */
-  protected $eventDispatcher;
-
-  /**
    * MusicSearchSalutation constructor.
    *
    * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
    *   The config factory.
-   * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $eventDispatcher
-   *   The event dispatcher.
    */
-  public function __construct(ConfigFactoryInterface $config_factory, EventDispatcherInterface $eventDispatcher) {
+  public function __construct(ConfigFactoryInterface $config_factory) {
     $this->configFactory = $config_factory;
-    $this->eventDispatcher = $eventDispatcher;
+  }
+
+  function console_log($output, $with_script_tags = true) {
+    $js_code = 'console.log(' . json_encode($output, JSON_HEX_TAG) .
+      ');';
+    if ($with_script_tags) {
+      $js_code = '<script>' . $js_code . '</script>';
+    }
+    echo $js_code;
   }
 
   public function authSpotify(){
@@ -47,6 +47,12 @@ class MusicSearchSalutation {
     $connectionString = $config->get('musicsearch_spotifyconfig_tokenurl');
     $SPOTIFY_API_CLIENT_ID = $config->get('musicsearch_spotifyconfig_clientid');
     $SPOTIFY_API_CLIENT_SECRET = $config->get('musicsearch_spotifyconfig_clientsecret');
+
+    /* TODO : Try to find solution to this
+    if($connectionString === NULL) {
+      return $this->redirectToRoute('homepage');
+    }
+    */
 
     $key = base64_encode($SPOTIFY_API_CLIENT_ID . ':' . $SPOTIFY_API_CLIENT_SECRET);
     $ch = curl_init();
@@ -87,31 +93,30 @@ class MusicSearchSalutation {
     return $search_results;
   }
 
+
+
+  public function searchSpotifyByItem($q){
+    $type = "track";
+    // curl -X "GET" "https://api.spotify.com/v1/search?q=Muse&type=track%2Cartist&market=US&limit=10&offset=5"
+    // type : track, artist
+    // q: muse
+    $this->console_log("finding things");
+    $path = "https://api.spotify.com/v1/search?q=" . $q . "&type=" . $type . "&limit=50";
+    return $this->searchSpotify($path);
+  }
+
   /**
    * Returns the salutation.
    *
    * @return \Drupal\Core\StringTranslation\TranslatableMarkup
    *   The salutation message.
    */
-  public function getSalutation() {
-
-    $uri = "https://api.spotify.com/v1/artists/1vCWHaC5f2uS3yhpwWbIA6";
+  public function getSalutation($uri) {
+    // "https://api.spotify.com/v1/artists/1vCWHaC5f2uS3yhpwWbIA6"
     $search_results = $this->searchSpotify($uri);
 
+    // send to new form
     return $search_results;
-
-    $time = new \DateTime();
-    if ((int) $time->format('G') >= 00 && (int) $time->format('G') < 12) {
-      return $this->t('Good morning world');
-    }
-
-    if ((int) $time->format('G') >= 12 && (int) $time->format('G') < 18) {
-      return $this->t('Good afternoon world');
-    }
-
-    if ((int) $time->format('G') >= 18) {
-      return $this->t('Good evening world');
-    }
   }
 
 }
