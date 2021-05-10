@@ -19,11 +19,6 @@
     public function buildForm(array $form, FormStateInterface $form_state) {
       $config = $this->config('musicsearch.custom_salutation');
 
-      /*
-      $connectionString = "https://accounts.spotify.com/api/token";
-      $SPOTIFY_API_CLIENT_ID = "b7aae92e30ad44d494a6ea47f5eac226";
-      $SPOTIFY_API_CLIENT_SECRET = "964aec03d8484b30875c37d39e153f11";
-      */
       $form['musicsearch_spotifyconfig_tokenurl'] = [
         '#type' => 'textfield',
         '#title' => $this->t('Connection String'),

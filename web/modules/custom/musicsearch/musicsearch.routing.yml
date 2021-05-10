@@ -8,7 +8,7 @@ musicsearch.search:
 musicsearch.autocomplete:
   path: '/musicsearch/autocomplete'
   defaults:
-    _controller:  Drupal\musicsearch\Controller\MusicSearchAutocompleteController::autocomplete
+    _controller:  Drupal\musicsearch\Controller\MusicSearchAutocompleteController::handleAutocomplete
     _format: json
   requirements:
     _permission: 'access content'

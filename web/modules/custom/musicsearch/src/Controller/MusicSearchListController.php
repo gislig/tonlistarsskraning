@@ -5,14 +5,13 @@ namespace Drupal\musicsearch\Controller;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Component\Serialization\Json;
 use Drupal\musicsearch\MusicSearchSalutation;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Request;
+
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
 /**
  * Controller for the salutation message.
  */
-class MusicSearchAutocompleteController extends ControllerBase {
+class MusicSearchListController extends ControllerBase {
   /**
    * The salutation service.
    *
@@ -30,6 +29,18 @@ class MusicSearchAutocompleteController extends ControllerBase {
     $this->salutation = $salutation;
   }
 
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container){
+    return new static(
+      $container->get('musicsearch.salutation')
+    );
+  }
+
+  public function saveData(){
+
+  }
 
   function console_log($output, $with_script_tags = true) {
     $js_code = 'console.log(' . json_encode($output, JSON_HEX_TAG) .
@@ -39,32 +50,6 @@ class MusicSearchAutocompleteController extends ControllerBase {
     }
     echo $js_code;
   }
-  public function autocomplete(request $request){
-    $this->console_log("autocomplete");
-    //$results = [];
-    $input = $request->query->get('q');
-    $this->console_log($input);
-    //if (!$input) {
-    //  return new JsonResponse($results);
-    //}
-    //$input = Xss::filter($input);
-    /*
-    $res = $this->salutation->searchSpotifyByItem("Muse");
-    //$res = $this->salutation->searchSpotifyByItem($input);
-    $decoded = json_decode($res);
 
-    foreach($decoded as $code){
-      $results[] = [
-        'value' => $code["album"],
-        'label' => $code["name"],
-      ];
-    }
-    return new JsonResponse($results);
-    */
-    return "";
-  }
 
-  public function handleAutocomplete(request $request){
-    $this->console_log("autocomplete");
-  }
 }
