@@ -39,32 +39,36 @@ class MusicSearchAutocompleteController extends ControllerBase {
     }
     echo $js_code;
   }
-  public function autocomplete(request $request){
-    $this->console_log("autocomplete");
-    //$results = [];
-    $input = $request->query->get('q');
-    $this->console_log($input);
-    //if (!$input) {
-    //  return new JsonResponse($results);
-    //}
-    //$input = Xss::filter($input);
-    /*
-    $res = $this->salutation->searchSpotifyByItem("Muse");
-    //$res = $this->salutation->searchSpotifyByItem($input);
-    $decoded = json_decode($res);
 
-    foreach($decoded as $code){
+  public function autocompleteAlbum(request $request){
+    $results = [];
+    $input = $request->query->get('q');
+
+    $res = $this->salutation->searchSpotifyByArtistOrTrack($input,"artist");
+    $decoded = json_decode($res);
+    foreach($decoded->artists->items as $artist){
       $results[] = [
-        'value' => $code["album"],
-        'label' => $code["name"],
+        'value' => $artist->name,
+        'label' => $artist->name,
       ];
     }
+
     return new JsonResponse($results);
-    */
-    return "";
   }
 
-  public function handleAutocomplete(request $request){
-    $this->console_log("autocomplete");
+  public function autocompleteArtist(request $request){
+    $results = [];
+    $input = $request->query->get('q');
+
+    $res = $this->salutation->searchSpotifyByArtistOrTrack($input,"track");
+    $decoded = json_decode($res);
+    foreach($decoded->tracks->items as $track){
+      $results[] = [
+        'value' => $track->name,
+        'label' => $track->name,
+      ];
+    }
+
+    return new JsonResponse($results);
   }
 }

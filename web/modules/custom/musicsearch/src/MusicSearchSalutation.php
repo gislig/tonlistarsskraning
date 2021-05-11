@@ -119,4 +119,23 @@ class MusicSearchSalutation {
     return $search_results;
   }
 
+  public function searchSpotifyByArtistOrTrack($value, $TrackOrArtist){
+    $path = "https://api.spotify.com/v1/search?q=" . $value . "&type=" . $TrackOrArtist . "&limit=50";
+    return $this->searchSpotify($path);
+  }
+
+  public function searchSpotifyAlbumsByArtist($artist_id){
+    $path = "https://api.spotify.com/v1/artists/" . $artist_id . "/albums";
+    return $this->searchSpotify($path);
+  }
+
+  public function searchSpotifyArtistData($artist_id){
+    $path = "https://api.spotify.com/v1/artists/" . $artist_id;
+    return $this->searchSpotify($path);
+  }
+
+  public function searchSpotifyAlbumTracks($album_id){
+    $path = "https://api.spotify.com/v1/albums/" . $album_id . "/tracks";
+    return $this->searchSpotify($path);
+  }
 }

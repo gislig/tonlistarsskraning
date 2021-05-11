@@ -5,10 +5,17 @@ musicsearch.search:
     _title: 'Route for music search'
   requirements:
     _permission: 'access content'
-musicsearch.autocomplete:
+musicsearch.autocomplete_album:
   path: '/musicsearch/autocomplete'
   defaults:
-    _controller:  Drupal\musicsearch\Controller\MusicSearchAutocompleteController::handleAutocomplete
+    _controller:  Drupal\musicsearch\Controller\MusicSearchAutocompleteController::autocompleteAlbum
+    _format: json
+  requirements:
+    _permission: 'access content'
+musicsearch.autocomplete_artist:
+  path: '/musicsearch/autocomplete'
+  defaults:
+    _controller:  Drupal\musicsearch\Controller\MusicSearchAutocompleteController::autocompleteArtist
     _format: json
   requirements:
     _permission: 'access content'
@@ -25,5 +32,37 @@ musicsearch.search_music:
     _form: Drupal\musicsearch\Form\MusicSearchForm
     _entity_form: musicsearch_crud.search
     _title: 'Search Music'
+  requirements:
+    _permission: 'access content'
+
+musicsearch.list_form:
+  path: '/musicsearch/list'
+  defaults:
+    _form: Drupal\musicsearch\Form\MusicSearchListForm
+    _title: 'List Results Music'
+  requirements:
+    _permission: 'access content'
+
+musicsearch.create_album:
+  path: '/musicsearch/create_album'
+  defaults:
+    _form: Drupal\musicsearch\Form\MusicSearchCreateAlbumForm
+    _title: 'Create Album'
+  requirements:
+    _permission: 'access content'
+
+musicsearch.current_albums:
+  path: '/musicsearch/current_albums'
+  defaults:
+    _form: Drupal\musicsearch\Form\MusicSearchCurrentAlbumsForm
+    _title: 'Current Albums'
+  requirements:
+    _permission: 'access content'
+
+musicsearch.save_selection:
+  path: '/musicsearch/save_selection'
+  defaults:
+    _form: Drupal\musicsearch\Form\MusicSearchSaveSelectionForm
+    _title: 'Current Albums'
   requirements:
     _permission: 'access content'
