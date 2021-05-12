@@ -56,13 +56,14 @@ class MusicSearchCreateAlbumForm extends FormBase {
     $form['album_name'] = array(
       '#type' => 'textfield',
       '#title' => $this->t('Enter album name'),
-      '#autocomplete_route_name' => 'musicsearch.autocomplete_album',
+      //'#autocomplete_route_name' => 'musicsearch.autocomplete_album',
+
     );
 
     $form['artist_name'] = array(
       '#type' => 'textfield',
       '#title' => $this->t('Enter artist name'),
-      //'#autocomplete_route_name' => 'musicsearch.autocomplete_artist',
+      '#autocomplete_route_name' => 'musicsearch.autocomplete_artist',
     );
 
     $form['submit'] = array(

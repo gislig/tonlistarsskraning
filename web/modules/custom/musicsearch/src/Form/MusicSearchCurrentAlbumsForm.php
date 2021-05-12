@@ -117,6 +117,7 @@ class MusicSearchCurrentAlbumsForm extends FormBase {
   }
 
 
+
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $tempstore = $this->tempStoreFactory->get('ex_form_values');
     $params = $tempstore->get('params');
@@ -124,6 +125,7 @@ class MusicSearchCurrentAlbumsForm extends FormBase {
     $album_name = $params['album_name'];
     $artist_name = $params['artist_name'];
     $album_data = "";
+    $params['artist_id'] = "";
     /*
     $album_exists = $params['album_exists'];
     $artist_exist = $params['artist_exists'];
@@ -134,10 +136,16 @@ class MusicSearchCurrentAlbumsForm extends FormBase {
 
     $artists = $this->salutation->searchSpotifyByArtistOrTrack($artist_name, "artist");
     $artists_json = json_decode($artists);
+    //echo "<pre>";
+    //die(print_r($artists_json));
 
+    // 7xhnsMJM6xq2hV7Tc5eSt1
+    // 6pAuTi6FXi6qFQJ1dzMXQs
     foreach($artists_json->artists->items as $artist){
       if($artist->name == $artist_name){
         $albums = $this->salutation->searchSpotifyAlbumsByArtist($artist->id);
+
+
         $album_json = json_decode($albums);
         foreach($album_json->items as $album){
           if($album->name == $album_name){

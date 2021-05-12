@@ -7,12 +7,13 @@ use Drupal\Component\Serialization\Json;
 use Drupal\musicsearch\MusicSearchSalutation;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Drupal\Core\Entity\Element\EntityAutocomplete;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
 /**
  * Controller for the salutation message.
  */
-class MusicSearchAutocompleteController extends ControllerBase {
+class MusicSearchAutocompleteController {
   /**
    * The salutation service.
    *
@@ -30,25 +31,22 @@ class MusicSearchAutocompleteController extends ControllerBase {
     $this->salutation = $salutation;
   }
 
-
-  function console_log($output, $with_script_tags = true) {
-    $js_code = 'console.log(' . json_encode($output, JSON_HEX_TAG) .
-      ');';
-    if ($with_script_tags) {
-      $js_code = '<script>' . $js_code . '</script>';
-    }
-    echo $js_code;
-  }
-
+  // https://codimth.com/blog/web/drupal/custom-autocomplete-text-fields-using-drupal-8-9
   public function autocompleteAlbum(request $request){
     $results = [];
     $input = $request->query->get('q');
+    if (!$input) {
+      return new JsonResponse($results);
+    }
 
-    $res = $this->salutation->searchSpotifyByArtistOrTrack($input,"artist");
+    $input = Xss::filter($input);
+
+    $res = $this->salutation->searchSpotifyByArtistOrTrack($input,"track");
     $decoded = json_decode($res);
+
     foreach($decoded->artists->items as $artist){
       $results[] = [
-        'value' => $artist->name,
+        'value' => $artist->id,
         'label' => $artist->name,
       ];
     }
@@ -56,16 +54,22 @@ class MusicSearchAutocompleteController extends ControllerBase {
     return new JsonResponse($results);
   }
 
-  public function autocompleteArtist(request $request){
+  public function autocompleteArtist(Request $request){
     $results = [];
     $input = $request->query->get('q');
+    if (!$input) {
+      return new JsonResponse($results);
+    }
 
-    $res = $this->salutation->searchSpotifyByArtistOrTrack($input,"track");
+    $input = Xss::filter($input);
+
+    $res = $this->salutation->searchSpotifyByArtistOrTrack($input,"artist");
     $decoded = json_decode($res);
-    foreach($decoded->tracks->items as $track){
+
+    foreach($decoded->artists->items as $artist){
       $results[] = [
-        'value' => $track->name,
-        'label' => $track->name,
+        'value' => EntityAutocomplete::getEntityLabels([$artist->name]),
+        'label' => implode(' ', $artist->name),
       ];
     }
 

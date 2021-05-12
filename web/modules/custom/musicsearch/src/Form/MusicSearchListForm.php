@@ -63,6 +63,11 @@ class MusicSearchListForm extends FormBase {
     $image_300 = "";
     $image_64 = "";
 
+    // If there is no album data
+    if($album_data == ""){
+      return $this->redirect('musicsearch.create_album');
+    }
+
 
     foreach($album_data->images as $img){
       if($img->width == 640){
@@ -76,13 +81,16 @@ class MusicSearchListForm extends FormBase {
       }
     }
 
+    //echo "<pre>";
+    //die(print_r($album_data));
+
+
+
     $tracks = $this->salutation->searchSpotifyAlbumTracks($album_data->id);
     $tracks_json = json_decode($tracks);
 
     $artist_data = $this->salutation->searchSpotifyArtistData($artist_id);
 
-    //echo "<pre>";
-    //die(print_r($artist_data));
 
     $form['spotify'] = array(
       '#type' => 'table',

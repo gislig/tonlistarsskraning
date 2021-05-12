@@ -5,6 +5,7 @@ musicsearch.search:
     _title: 'Route for music search'
   requirements:
     _permission: 'access content'
+
 musicsearch.autocomplete_album:
   path: '/musicsearch/autocomplete'
   defaults:
@@ -12,13 +13,14 @@ musicsearch.autocomplete_album:
     _format: json
   requirements:
     _permission: 'access content'
+
 musicsearch.autocomplete_artist:
   path: '/musicsearch/autocomplete'
   defaults:
     _controller:  Drupal\musicsearch\Controller\MusicSearchAutocompleteController::autocompleteArtist
-    _format: json
   requirements:
     _permission: 'access content'
+
 musicsearch.music_form:
   path: '/admin/config/musicsearch-configuration'
   defaults:
@@ -26,6 +28,7 @@ musicsearch.music_form:
     _title: 'Music Search Configuration'
   requirements:
     _permission: 'administer site configuration'
+
 musicsearch.search_music:
   path: '/musicsearch/search'
   defaults:
