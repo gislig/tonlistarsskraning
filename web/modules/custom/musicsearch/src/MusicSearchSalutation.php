@@ -138,4 +138,9 @@ class MusicSearchSalutation {
     $path = "https://api.spotify.com/v1/albums/" . $album_id . "/tracks";
     return $this->searchSpotify($path);
   }
+
+  public function searchSpotifyTrackById($track_id){
+    $path = "https://api.spotify.com/v1/tracks/" . $track_id;
+    return $this->searchSpotify($path);
+  }
 }

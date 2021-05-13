@@ -89,6 +89,7 @@ class MusicSearchListForm extends FormBase {
     $tracks = $this->salutation->searchSpotifyAlbumTracks($album_data->id);
     $tracks_json = json_decode($tracks);
 
+
     $artist_data = $this->salutation->searchSpotifyArtistData($artist_id);
 
 
@@ -146,6 +147,9 @@ class MusicSearchListForm extends FormBase {
 
       $form['spotify'][$track->id]['add'] = array(
         '#type' => 'checkbox',
+        '#states' => [
+          'input[name="album"]' => ['checked' => FALSE],
+        ],
       );
     }
 
@@ -159,6 +163,59 @@ class MusicSearchListForm extends FormBase {
 
 
   public function submitForm(array &$form, FormStateInterface $form_state) {
+
+    $tempstore = $this->tempStoreFactory->get('ex_form_values');
+    $params = $tempstore->get('params');
+    $album_name = $params['album_name'];
+    $artist_name = $params['artist_name'];
+    $album_data = $params['album_data'];
+    $artist_id = $params['artist_id'];
+
+    $track_name = "";
+    $track_length_sec = "";
+    $track_type = "";
+    // Go through selection
+
+    // spotify[1Q5kgpp4pmyGqPwNBzkSrw][add]
+    echo "<pre>";
+    //foreach()
+    //die(print_r($form_state->getValues()));
+    //die(print_r($form_state->getValue("spotify")));
+    foreach($form_state->getValue("spotify") as $key => $spotify) {
+      // Here we search for track
+      if($spotify["add"] == 1){
+        $track_details = $this->salutation->searchSpotifyTrackById($key);
+        $track_details = json_decode($track_details);
+
+        //die(print_r($track_details->name));
+        $track_name = $track_details->name;
+        //die(print_r($track_name));
+        $track_length_sec = $track_details->duration_ms / 1000;
+        $track_type = "pop";
+
+        //die(print_r($track_name));
+        $node = \Drupal::entityTypeManager()->getStorage('node')->create(['type' => 'song']);
+        $node->set('title',$track_name);
+        $node->set('field_duration_in_seconds',$track_length_sec);
+        $node->set('field_song_type',$track_type);
+        $node->set('field_spotify_id',$key);
+        $node->save();
+      }
+    }
+
+    // Here we update the album with the image
+
+    //die(print_r($form["spotify"]));
+    /*foreach ($form_state->getValues() as $key => $value) {
+      echo $key . ': ' . $value;
+    }
+    */
+    //die(print_r("[" . $form['spotify[1Q5kgpp4pmyGqPwNBzkSrw][add]'] . " and " . $form['spotify[6KVM6U9Wcxgjh0jDjoRDgh][add]'] . "] \n"));
+
+    // Save the artist
+    // Go through each album and save it
+    //
+    $form_state->setRedirect('musicsearch.create_album');
   }
 
 }

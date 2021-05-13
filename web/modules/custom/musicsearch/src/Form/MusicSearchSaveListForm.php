@@ -8,7 +8,7 @@ use Drupal\musicsearch\MusicSearchSalutation;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\TempStore\PrivateTempStoreFactory;
 
-class MusicSearchForm extends FormBase {
+class MusicSearchSaveListForm extends FormBase {
   /**
    * Drupal\Core\TempStore\PrivateTempStoreFactory definition.
    *
@@ -54,18 +54,7 @@ class MusicSearchForm extends FormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    $form['name'] = array(
-      '#type' => 'textfield',
-      '#title' => $this->t('Enter spotify name'),
-      '#description' => $this->t('Please provide the spotify name'),
-      '#autocomplete_route_name' => 'musicsearch.autocomplete',
-    );
 
-    $form['submit'] = array(
-      '#type' => 'submit',
-      '#value' => 'Submit',
-    );
-    return $form;
   }
 
   /**
@@ -76,18 +65,6 @@ class MusicSearchForm extends FormBase {
   }
 
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    $id = $form_state->getValue('name');
-    $result = $this->salutation->searchSpotifyByItem($id);
-
-    //die($result);
-    $tempstore = $this->tempStoreFactory->get('ex_form_values');
-    $tempstore->set('params', $result);
-
-    $form_state->setRedirect('musicsearch.list_form');
-    //die($result);
-    //return $result;
-    //$this->submitForm($form, $form_state);
-    // Kalla á service-inn
 
   }
 }

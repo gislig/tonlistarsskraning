@@ -57,19 +57,20 @@ class MusicSearchAutocompleteController {
   public function autocompleteArtist(Request $request){
     $results = [];
     $input = $request->query->get('q');
-    if (!$input) {
+    if (strlen($input) < 3) {
       return new JsonResponse($results);
     }
 
-    $input = Xss::filter($input);
+    $uri = "https://api.spotify.com/v1/search?q=artist:" . $input . "&type=artist";
+    $res = $this->salutation->searchSpotify($uri);
 
-    $res = $this->salutation->searchSpotifyByArtistOrTrack($input,"artist");
+    //$res = $this->salutation->searchSpotifyByArtistOrTrack($input,"artist");
     $decoded = json_decode($res);
 
-    foreach($decoded->artists->items as $artist){
+    foreach($decoded->{artists}->{items} as $artist){
       $results[] = [
-        'value' => EntityAutocomplete::getEntityLabels([$artist->name]),
-        'label' => implode(' ', $artist->name),
+        'value' => $artist->{name},
+        'label' => $artist->{name} . " - spotify",
       ];
     }
 

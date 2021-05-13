@@ -162,6 +162,7 @@ class MusicSearchCurrentAlbumsForm extends FormBase {
     $node->save();
     $tempstore->set('params', $params);
 
+
     // Here we check if the data exists
     // show new form with existing albums
 
